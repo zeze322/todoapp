@@ -4,7 +4,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/zeze322/todoapp/internal/config"
-	"github.com/zeze322/todoapp/internal/http-server/handlers/createtask"
+	"github.com/zeze322/todoapp/internal/http-server/handlers/createTask"
 	"github.com/zeze322/todoapp/internal/http-server/handlers/deleteTask"
 	"github.com/zeze322/todoapp/internal/http-server/handlers/getTask"
 	"github.com/zeze322/todoapp/internal/http-server/handlers/getTasks"
@@ -41,7 +41,7 @@ func main() {
 
 	router.Get("/task/{id}", getTask.New(log, storage))
 	router.Get("/tasks", getTasks.New(log, storage))
-	router.Post("/tasks", createtask.New(log, storage))
+	router.Post("/tasks", createTask.New(log, storage))
 	router.Put("/task/{id}", updateTask.New(log, storage))
 	router.Delete("/task/{id}", deleteTask.New(log, storage))
 
