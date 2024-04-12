@@ -11,9 +11,9 @@ type Storage struct {
 }
 
 type Task struct {
-	ID          int    `json:"id"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
+	ID          int
+	Title       string
+	Description string
 }
 
 func New() (*Storage, error) {
