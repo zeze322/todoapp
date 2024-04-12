@@ -19,7 +19,7 @@ type Request struct {
 }
 
 type TaskCreator interface {
-	CreateTask(id int, title, description string) error
+	Create(id int, title, description string) error
 }
 
 func New(log *slog.Logger, createTask TaskCreator) http.HandlerFunc {
@@ -50,7 +50,7 @@ func New(log *slog.Logger, createTask TaskCreator) http.HandlerFunc {
 			return
 		}
 
-		err = createTask.CreateTask(req.ID, req.Title, req.Description)
+		err = createTask.Create(req.ID, req.Title, req.Description)
 		if errors.Is(err, storage.ErrTaskExists) {
 			log.Info("task already exists", sl.Err(err))
 

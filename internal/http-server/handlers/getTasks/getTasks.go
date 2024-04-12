@@ -13,7 +13,7 @@ import (
 )
 
 type TasksGetter interface {
-	GetTasks() ([]postgres.Task, error)
+	Tasks() ([]postgres.Task, error)
 }
 
 func New(log *slog.Logger, getTasks TasksGetter) http.HandlerFunc {
@@ -25,7 +25,7 @@ func New(log *slog.Logger, getTasks TasksGetter) http.HandlerFunc {
 			slog.String("request_id", middleware.GetReqID(r.Context())),
 		)
 
-		tasks, err := getTasks.GetTasks()
+		tasks, err := getTasks.Tasks()
 		if errors.Is(err, storage.ErrTasksNotFound) {
 			log.Info("tasks not found")
 

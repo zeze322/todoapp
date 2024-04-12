@@ -14,7 +14,7 @@ import (
 )
 
 type TaskDeleter interface {
-	DeleteTask(id int) error
+	Delete(id int) error
 }
 
 func New(log *slog.Logger, deleteTask TaskDeleter) http.HandlerFunc {
@@ -44,7 +44,7 @@ func New(log *slog.Logger, deleteTask TaskDeleter) http.HandlerFunc {
 			return
 		}
 
-		err = deleteTask.DeleteTask(idValue)
+		err = deleteTask.Delete(idValue)
 		if errors.Is(err, storage.ErrIDNotFound) {
 			log.Info("task not found")
 

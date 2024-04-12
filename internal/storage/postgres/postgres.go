@@ -27,8 +27,8 @@ func New() (*Storage, error) {
 	return &Storage{db: db}, nil
 }
 
-func (s *Storage) CreateTask(id int, title, description string) error {
-	const op = "storage.postgres.CreateTask"
+func (s *Storage) Create(id int, title, description string) error {
+	const op = "storage.postgres.Create"
 
 	_, err := s.db.Exec("INSERT INTO task (id, title, description) VALUES ($1, $2, $3)", id, title, description)
 	if err != nil {
@@ -38,8 +38,8 @@ func (s *Storage) CreateTask(id int, title, description string) error {
 	return nil
 }
 
-func (s *Storage) DeleteTask(id int) error {
-	const op = "storage.postgres.DeleteTask"
+func (s *Storage) Delete(id int) error {
+	const op = "storage.postgres.Delete"
 
 	_, err := s.db.Exec("DELETE FROM task WHERE id = $1", id)
 	if err != nil {
@@ -49,8 +49,8 @@ func (s *Storage) DeleteTask(id int) error {
 	return nil
 }
 
-func (s *Storage) UpdateTask(id int, title, description string) error {
-	const op = "storage.postgres.UpdateTask"
+func (s *Storage) Update(id int, title, description string) error {
+	const op = "storage.postgres.Update"
 
 	_, err := s.db.Exec("UPDATE task set title = $1, description = $2 WHERE id = $3", title, description, id)
 	if err != nil {
@@ -60,8 +60,8 @@ func (s *Storage) UpdateTask(id int, title, description string) error {
 	return nil
 }
 
-func (s *Storage) GetTasks() ([]Task, error) {
-	const op = "storage.postgres.GetTasks"
+func (s *Storage) Tasks() ([]Task, error) {
+	const op = "storage.postgres.Tasks"
 
 	rows, err := s.db.Query("SELECT * FROM task")
 	if err != nil {
@@ -84,8 +84,8 @@ func (s *Storage) GetTasks() ([]Task, error) {
 	return tasks, nil
 }
 
-func (s *Storage) GetTask(id int) (Task, error) {
-	const op = "storage.postgres.GetTask"
+func (s *Storage) Task(id int) (Task, error) {
+	const op = "storage.postgres.Task"
 
 	var task Task
 

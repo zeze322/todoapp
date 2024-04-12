@@ -20,7 +20,7 @@ type Request struct {
 }
 
 type TaskUpdater interface {
-	UpdateTask(id int, title, description string) error
+	Update(id int, title, description string) error
 }
 
 func New(log *slog.Logger, updateTask TaskUpdater) http.HandlerFunc {
@@ -69,7 +69,7 @@ func New(log *slog.Logger, updateTask TaskUpdater) http.HandlerFunc {
 			return
 		}
 
-		err = updateTask.UpdateTask(idValue, req.Title, req.Description)
+		err = updateTask.Update(idValue, req.Title, req.Description)
 		if err != nil {
 			log.Error("failed to update task", sl.Err(err))
 
