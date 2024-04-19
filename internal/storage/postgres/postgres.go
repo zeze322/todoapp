@@ -3,7 +3,9 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
+	"os"
 )
 
 type Storage struct {
@@ -19,7 +21,19 @@ type Task struct {
 func New() (*Storage, error) {
 	const op = "storage.postgres.New"
 
-	db, err := sql.Open("postgres", "user=zeze password=123qwe123 dbname=postgres sslmode=disable")
+	if err := godotenv.Load(".env"); err != nil {
+		return nil, fmt.Errorf("%s %s", op, err)
+	}
+
+	var (
+		dbUser    = os.Getenv("DB_USER")
+		dbPass    = os.Getenv("DB_PASS")
+		dbName    = os.Getenv("DB_NAME")
+		dbSSLMode = os.Getenv("DB_SSLMODE")
+		uri       = fmt.Sprintf("user=%s password=%s dbname=%s sslmode=%s", dbUser, dbPass, dbName, dbSSLMode)
+	)
+
+	db, err := sql.Open("postgres", uri)
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", op, err)
 	}
