@@ -13,13 +13,12 @@ import (
 )
 
 type Request struct {
-	ID          int    `json:"id"`
 	Title       string `json:"title"`
 	Description string `json:"description"`
 }
 
 type TaskCreator interface {
-	Create(id int, title, description string) error
+	Create(title, description string) error
 }
 
 func New(log *slog.Logger, createTask TaskCreator) http.HandlerFunc {
@@ -50,7 +49,7 @@ func New(log *slog.Logger, createTask TaskCreator) http.HandlerFunc {
 			return
 		}
 
-		err = createTask.Create(req.ID, req.Title, req.Description)
+		err = createTask.Create(req.Title, req.Description)
 		if errors.Is(err, storage.ErrTaskExists) {
 			log.Info("task already exists", sl.Err(err))
 

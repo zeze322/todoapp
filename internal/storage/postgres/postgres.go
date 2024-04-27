@@ -41,10 +41,10 @@ func New() (*Storage, error) {
 	return &Storage{db: db}, nil
 }
 
-func (s *Storage) Create(id int, title, description string) error {
+func (s *Storage) Create(title, description string) error {
 	const op = "storage.postgres.Create"
 
-	_, err := s.db.Exec("INSERT INTO task (id, title, description) VALUES ($1, $2, $3)", id, title, description)
+	_, err := s.db.Exec("INSERT INTO task (title, description) VALUES ($1, $2)", title, description)
 	if err != nil {
 		fmt.Errorf("%s: %w", op, err)
 	}
