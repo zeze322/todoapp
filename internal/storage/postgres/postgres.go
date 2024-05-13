@@ -3,9 +3,10 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
+	"os"
+
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
-	"os"
 )
 
 type Storage struct {
@@ -54,7 +55,6 @@ func (s *Storage) Create(title, description string) error {
 
 func (s *Storage) Delete(id int) error {
 	const op = "storage.postgres.Delete"
-
 	_, err := s.db.Exec("DELETE FROM task WHERE id = $1", id)
 	if err != nil {
 		return fmt.Errorf("%s: %w", op, err)

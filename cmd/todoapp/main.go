@@ -1,6 +1,12 @@
 package main
 
 import (
+	"log/slog"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/zeze322/todoapp/internal/config"
@@ -11,11 +17,6 @@ import (
 	"github.com/zeze322/todoapp/internal/http-server/handlers/updateTask"
 	"github.com/zeze322/todoapp/internal/logger/sl"
 	"github.com/zeze322/todoapp/internal/storage/postgres"
-	"log/slog"
-	"net/http"
-	"os"
-	"os/signal"
-	"syscall"
 )
 
 const (

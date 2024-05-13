@@ -2,15 +2,16 @@ package updateTask
 
 import (
 	"errors"
+	"io"
+	"log/slog"
+	"net/http"
+	"strconv"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/render"
 	resp "github.com/zeze322/todoapp/internal/lib/api/response"
 	"github.com/zeze322/todoapp/internal/logger/sl"
-	"io"
-	"log/slog"
-	"net/http"
-	"strconv"
 )
 
 type Request struct {

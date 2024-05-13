@@ -2,6 +2,10 @@ package getTask
 
 import (
 	"errors"
+	"log/slog"
+	"net/http"
+	"strconv"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/render"
@@ -9,9 +13,6 @@ import (
 	"github.com/zeze322/todoapp/internal/logger/sl"
 	"github.com/zeze322/todoapp/internal/storage"
 	"github.com/zeze322/todoapp/internal/storage/postgres"
-	"log/slog"
-	"net/http"
-	"strconv"
 )
 
 type TaskGetter interface {
